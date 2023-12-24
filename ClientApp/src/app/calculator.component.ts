@@ -13,6 +13,8 @@ export class CalculatorComponent {
   number2!: number;
   result: number | null = null;
   display = '0';
+  firstValue: number | null = null;
+  action: string | null = null;
   // constructor(private calculatorService: CalculatorService) { }
   // add() {
   //   this.calculatorService.add(this.number1, this.number2)
@@ -25,5 +27,10 @@ export class CalculatorComponent {
     } else {
       this.display = `${this.display}${val}`;
     }
+  }
+  oper(action: any) {
+    this.firstValue = parseFloat(this.display);
+    this.action = action;
+    this.display = ' ';
   }
 }
