@@ -22,6 +22,7 @@ export class CalculatorComponent {
   // };
 
   numClick(val: { toString: () => any; }) {
+    console.log("sinside num");
     if (this.display === '0') {
       this.display = val.toString();
     } else {
