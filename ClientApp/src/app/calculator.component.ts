@@ -15,10 +15,9 @@ export class CalculatorComponent {
   display = '0';
   firstValue: number | null = null;
   action: string | null = null;
-  // constructor(private calculatorService: CalculatorService) { }
+  constructor(private calculatorService: CalculatorService) { }
   // add() {
-  //   this.calculatorService.add(this.number1, this.number2)
-  //     .subscribe(result => this.result = result);
+    
   // };
 
   numClick(val: { toString: () => any; }) {
@@ -29,9 +28,105 @@ export class CalculatorComponent {
       this.display = `${this.display}${val}`;
     }
   }
-  oper(action: any) {
+  oper(action: string | null) {
     this.firstValue = parseFloat(this.display);
     this.action = action;
     this.display = ' ';
   }
-}
+
+  calculate() {
+    console.log("inside calc");
+    const a = this.firstValue;
+    const b = parseFloat(this.display);
+
+    if (this.action === 'm') {
+      this.calculatorService.multiply(a!, b)
+      .subscribe((data)=>{
+        console.log(data);
+        if(data)
+        {
+        this.firstValue = data;
+        this.display = data.toString();
+        }
+      });
+    }
+   
+    else if (this.action === 'a') {
+      this.calculatorService.add(a!, b)
+      .subscribe((data)=>{
+        console.log(data);
+        if(data)
+        {
+        this.firstValue = data;
+        this.display = data.toString();
+        }
+      });
+    }
+
+    else if (this.action === 's') {
+          this.calculatorService.subtract(a!, b)
+          .subscribe((data)=>{
+            console.log(data);
+            if(data)
+            {
+            this.firstValue = data;
+            this.display = data.toString();
+            }
+          });
+        }
+
+    else if (this.action === 'd') {
+          this.calculatorService.division(a!, b)
+          .subscribe((data)=>{
+            console.log(data);
+            if(data)
+            {
+            this.firstValue = data;
+            this.display = data.toString();
+            }
+          });
+        }
+        else if (this.action === 'md') {
+          this.calculatorService.mod(a!, b)
+          .subscribe((data)=>{
+            console.log(data);
+            if(data)
+            {
+            this.firstValue = data;
+            this.display = data.toString();
+            }
+          });
+        }
+    else if (this.action === 'sq') {
+          this.calculatorService.square(a!)
+          .subscribe((data)=>{
+            console.log(data);
+            if(data)
+            {
+            this.firstValue = data;
+            this.display = data.toString();
+            }
+          });
+        }
+        else if (this.action === 'sr') {
+          this.calculatorService.squareroot(a!)
+          .subscribe((data)=>{
+            console.log(data);
+            if(data)
+            {
+            this.firstValue = data;
+            this.display = data.toString();
+
+            }
+          });
+        }
+
+      }
+
+  backspace(){
+    this.display = this.display.substring(0, this.display.length - 1);  
+  }
+
+    }
+
+    
