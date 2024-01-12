@@ -56,6 +56,7 @@ public class CalculatorController : ControllerBase
     public ActionResult SaveCalculation(int result, string operationName)
     {
         // To do
+
         return Ok();
     }
 }

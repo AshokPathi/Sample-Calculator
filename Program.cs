@@ -1,5 +1,8 @@
 
-namespace Sample_Calculator
+using Microsoft.EntityFrameworkCore;
+using SampleCalculator.Controllers.Data;
+
+namespace SampleCalculator
 {
     public class Program
     {
@@ -10,6 +13,10 @@ namespace Sample_Calculator
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")
+            ));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
