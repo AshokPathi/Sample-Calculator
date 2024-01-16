@@ -3,12 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SampleCalculator.Models
 {
-    public class CalculationOperation
+    public class CalculatorOperation
     {
         [Key]
-        public int Id { get; set; }
-
-        [Required]
         [DisplayName("Calculation Name")]
         public required string CalculationName { get; set; }
 

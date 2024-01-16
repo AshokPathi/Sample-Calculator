@@ -22,17 +22,10 @@ namespace SampleCalculator.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SampleCalculator.Models.CalculationOperation", b =>
+            modelBuilder.Entity("SampleCalculator.Models.CalculatorOperation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("CalculationName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
@@ -43,9 +36,9 @@ namespace SampleCalculator.Migrations
                     b.Property<float>("Result")
                         .HasColumnType("real");
 
-                    b.HasKey("Id");
+                    b.HasKey("CalculationName");
 
-                    b.ToTable("CalculationOperation");
+                    b.ToTable("CalculatorOperations");
                 });
 #pragma warning restore 612, 618
         }

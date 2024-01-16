@@ -1,10 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Test = System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using SampleCalculator.Controllers.Data;
+using SampleCalculator.Models;
 
 [ApiController]
 [Route("api/calculator")]
 public class CalculatorController : ControllerBase
 {
-    [HttpGet("add")]
+
+        private readonly ApplicationDbContext _db;
+        public CalculatorController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
+
+        [HttpGet("add")]
     public ActionResult<int> Add(int a, int b)
     {
         return Ok(a + b);
@@ -51,12 +63,33 @@ public class CalculatorController : ControllerBase
     {
         return Ok(Math.Sqrt(a));
     }
+  
+    [HttpGet("Calculatoroperations")]
+    public ActionResult<CalculatorOperation> CalculatorOperation(string? name)
+        {
+        var CalculatorOperationFromdb = _db.CalculatorOperations.Find(name);
 
-    [HttpPost("saveCalculation")]
-    public ActionResult SaveCalculation(int result, string operationName)
-    {
-        // To do
-
-        return Ok();
+        return CalculatorOperationFromdb;
     }
+
+    [HttpPost]
+    public void SaveCalculatorOperation(CalculatorOperation calculatorOperation)
+    {
+        if(_db.CalculatorOperations.Any(x => x.CalculationName != calculatorOperation.CalculationName))
+        {
+            _db.CalculatorOperations.Add(calculatorOperation);
+            _db.SaveChanges();
+        }
+        else
+        {
+            ////var resp = new Test.HttpResponseMessage(HttpStatusCode.InternalServerError)
+            ////{
+            ////    Content = new StringContent(string.Format("This name already exist. Please enter different name")),
+            ////    ReasonPhrase = "Duplicate Name"
+            ////};
+            ////throw new HttpResponseException(resp);
+            throw new Exception("bad request");
+        }
+    }
+
 }

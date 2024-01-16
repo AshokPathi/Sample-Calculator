@@ -9,6 +9,6 @@ namespace SampleCalculator.Controllers.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<CalculationOperation> CalculationOperation{ get; set; }
+        public DbSet<CalculatorOperation> CalculatorOperations { get; set; }
     }
 }
